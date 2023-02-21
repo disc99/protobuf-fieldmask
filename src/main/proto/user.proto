@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+import "google/protobuf/field_mask.proto";
+
+option java_multiple_files = true;
+option java_package = "io.example.user";
+
+package example.user;
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (User) {}
+  rpc UpdateUser(UpdateUserRequest) returns (User) {}
+  rpc GetUser(GetUserRequest) returns (User) {}
+}
+
+message CreateUserRequest {
+  User user = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+  google.protobuf.FieldMask update_mask = 2;
+}
+
+message GetUserRequest {
+  string name = 1;
+}
+
+message User {
+  string name = 1;
+  string password = 2;
+  Contact contact = 3;
+  repeated Book books = 4;
+}
+
+message Contact {
+  string tel = 1;
+  string mail = 2;
+}
+
+message Book {
+  string name = 1;
+  string author = 2;
+}
